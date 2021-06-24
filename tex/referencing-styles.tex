@@ -1,0 +1,75 @@
+Different referencing styles determine how you create in-text citations and the bibliography (list of references). Two common referencing styles are presented in this chapter:
+\begin{enumerate}
+    \item Numeric referencing (Vancouver system), such as [1], [2], \ldots
+    \item Name-year (Harvard) system, such as (Weber 2001), (Kaunisto 2003), \ldots
+\end{enumerate}
+A numeric reference is inserted in square brackets, whereas the last name of the author and the year of publication are given in parentheses. Both styles are acceptable, but the conventions for referencing vary between disciplines. You must pick one and use is consistently throughout your thesis.
+
+The most commonly used tool for creating bibliographies in \LaTeX{} is the Bib\TeX. It is, however, old already, and the Bib\LaTeX{} \parencite{biblatex} is a more flexible and powerful system to replace it. In practice, most of the scientific publishing relies on the deprecated tool, but a change is at hand. For these reasons, this template guides towards using Bib\LaTeX.
+
+Both of the mentioned systems are based on gathering the bibliographic information from the sources to a \texttt{.bib} file using a specialised syntax. The program reads both this file and the document being written, and then forms the references and the bibliography based on this information. The following contains instructions for using both citation styles with Bib\LaTeX. This template defaults to the use of the numeric system, and this can be reverted to the other style by adding \texttt{authoryear} as an optional argument to the document class.
+
+\section{In-text citations}
+
+In-text citations are placed within the body of the text as close to the actual citation as possible. The citation is generally placed within the sentence before the next period.
+
+\begin{quotation}
+\noindent Weber argues that\ldots [1].
+
+\noindent Cattaneo et al. introduce in their study [2] a new\ldots
+
+\noindent The result is\ldots [1, p. 23]. One must also note\ldots [1, pp. 33--36]
+
+\noindent In accordance with the presented theory\ldots (Weber 2001).
+
+\noindent It must especially be noted\ldots (Cattaneo et al. 2004).
+
+\noindent Weber (2001, p. 230) has stated\ldots
+
+\noindent Based on literature in the field [1, 3, 5]\ldots
+
+\noindent Based on literature in the field [1][3][5]\ldots
+
+\noindent The topic has been widely studied [6--18]\ldots
+
+\noindent\ldots existing literature (Weber 2001; Kaunisto 2003; Cattaneo et al. 2004) has\ldots
+\end{quotation}
+
+Each of the sources listed in the \texttt{.bib} file must be associated with a unique identifier at the beginning of the entry. These identifiers should be chosen as descriptively as possible, since all citations are created using them. In the numeric system each citation is typeset using the \verbcommand{cite} command, for example \verbcommand{cite\{notsoshort\}}. This produces \cite{notsoshort}, for instance, depending on the final list of references. Additional information can be introduced using the optional arguments: writing \verbcommand{cite[p. 30]\{notsoshort\}} produces \cite[p. 30]{notsoshort} and \verbcommand{cite[see][p. 30]\{notsoshort\}} results in \cite[see][p. 30]{notsoshort}.
+
+The name-year system is more complicated simply because of the greater number of options available, as seen above. The Bib\LaTeX{} logic remains the same, however, the commands change. The most important commands are \verbcommand{parencite}, \verbcommand{parencite*}, \verbcommand{citeauthor} and \verbcommand{textcite}, which produce (Oetiker et al. 2018), (2018), Oetiker et al. and Oetiker et al. (2018), respectively. More commands can be found in the documentation \parencite{biblatex}.
+
+\section{List of references}
+
+At least the
+\begin{itemize}
+    \item author(s),
+    \item title,
+    \item time of publication,
+    \item publisher,
+    \item pages (books and journals), and
+    \item website URL
+\end{itemize}
+are provided per source as bibliographic information, if known. The Bib\LaTeX{} takes care of presenting them in an internally consistent manner. When using this system it is imperative to know the type of the source: a journal article, a book, conference proceedings, a report and a patent are only examples of the various possibilities. This information is also included in the \texttt{.bib} file, and the presentation is automatically taken care of based on the type of the source. Below there is an example of the syntax and information needed in the \texttt{.bib} file for citing a journal article.
+
+\texttt{
+\begin{quotation}
+    \noindent @article\{braams1991babel,\\
+    title=\{Babel, a multilingual style-option system \\
+    for use with \textbackslash LaTeX’s standard document styles\},\\
+    author=\{Braams, Johannes L\},\\
+    journal=\{TUGboat\},\\
+    volume=\{12\},\\
+    number=\{2\},\\
+    pages=\{291--301\},\\
+    year=\{1991\}\\
+    \}
+\end{quotation}
+}
+
+The above shows as
+\begin{enumerate}[label={[\arabic*]}]
+    \item J. L. Braams. Babel, a multilingual style-option system for use with \LaTeX's standard document styles. \emph{TUGboat} 12.2 (1991), 291--301.
+    \item[] Braams, J. L. (1991). Babel, a multilingual style-option system for use with \LaTeX's standard document styles. \emph{TUGboat} 12.2, 291--301.
+\end{enumerate}
+in the different citation styles. It is preferable to order the list of references alphabetically by the first author's last name. This template conforms automatically to this convention. An excellent way for the easy formation of citation entries is to find a template using Google Scholar. It produces a good first try for the use of Bib\TeX{} and Bib\LaTeX{}. In addition to the documentation, \parencite{bibmanagement} provides a good summary of the different citation types and their associated fields.

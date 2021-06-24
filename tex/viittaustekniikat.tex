@@ -1,0 +1,70 @@
+Viittaus sisältää kaksi pääkohtaa: tekstissä esiintyvän lähdeviitteen ja lähdeluettelon, jossa on jokaisen lähteen yksilöivät (bibliografiset) tiedot. Tässä osiossa esitellään 2 yleistä viittausten merkintätapaa:
+\begin{enumerate}
+    \item numeroviittausjärjestelmä (Vancouver-järjestelmä), esim. [1], [2], \ldots
+    \item nimi-vuosijärjestelmä (Harvard-järjestelmä), esim. (Weber 2001), (Kaunisto 2003), \ldots
+\end{enumerate}
+Numeroviittaus sijoitetaan hakasulkeisiin ja nimi-vuosiviittaus kaarisulkeisiin. Ensin mainitussa käytetään juoksevaa numerointia ja jälkimmäisessä tekijän sukunimeä ja julkaisuvuotta. Kumpikin viittaustapa on sallittu, ja niiden yleisyys vaihtelee aloittain. Valitse yksi ja ole järjestelmällinen sitä käyttäessäsi.
+
+\LaTeX{}in tavallisimmin käytetty lähdeviittaustoiminto on pitkään ollut Bib\TeX. Se on kuitenkin jo vanha, ja sitä joustavampi ja ilmaisuvoimaisempi vaihtoehto on Bib\LaTeX{} \parencite{biblatex}. Käytännössä suuri osa tieteellisestä julkaisemisesta hyödyntää vanhempaa työkalua, mutta muutostakin on tapahtumassa. Näistä syistä tämä pohja ohjaa käyttämään Bib\LaTeX{}ia.
+
+Molemmat esitellyt järjestelmät perustuvat siihen, että käytettyjen lähteiden bibliografiset tiedot kerätään \texttt{.bib}-tiedostoon erityisellä syntaksilla. Ohjelma lukee sekä tämän ''tietokannan'' että kirjoitettavan dokumentin, sekä muodostaa viitteet ja viiteluettelon niiden pohjalta. Seuraavassa käydään läpi molempien viittaustyylien muodostaminen Bib\LaTeX{}in avulla. Oletuksena pohjassa on aktiivisena numeroviittaus, ja sen voi vaihtaa nimi-vuosi\-järjestelmään kirjoittamalla dokumenttiluokan valinnaiseksi argumentiksi \texttt{authoryear}.
+
+\section{Lähdeviittaukset tekstissä}
+
+Lähdeviittaus sijoitetaan tekstin joukkoon mahdollisimman lähelle viittauskohtaa. Pääsääntönä tekstiviittaus sijoitetaan virkkeen sisälle ennen pistettä.
+
+\begin{quotation}
+\noindent Weber väittää, että\ldots [1].
+
+\noindent Cattaneo et al. esittävät tutkimuksessaan [2] uuden\ldots
+
+\noindent Tuloksena on\ldots [1, s. 23]. Pitää myös huomata\ldots [1, ss. 33--36]
+
+\noindent Esitetyn teorian mukaan\ldots (Weber 2001).
+
+\noindent Erityisesti on huomioitava\ldots (Cattaneo et al. 2004).
+
+\noindent Weber (2001, s. 230) on todennut\ldots
+
+\noindent Alan kirjallisuudessa [1, 3, 5] esitetyn mukaan\ldots
+
+\noindent Alan kirjallisuudessa [1][3][5] esitetyn mukaan\ldots
+
+\noindent Aihetta on tutkittu ja raportoitu erittäin laajasti [6--18]\ldots
+
+\noindent\ldots kirjallisuudessa (Weber 2001; Kaunisto 2003; Cattaneo et al. 2004) on esitetty\ldots
+\end{quotation}
+
+Lähdeluettelon pohjana toimivan \texttt{.bib}-tiedoston jokaista erillistä lähdettä varten varataan yksikäsitteinen tunniste, joka aloittaa tietojen esittelyn. Tunnisteet kannattaa valita mahdollisimman kuvaaviksi, sillä kaikki viittaukset tapahtuvat niiden avulla. Numeroviittausjärjestelmässä jokainen viittaus luodaan \verbcommand{cite}-komennolla: esimerkiksi \verbcommand{cite\{notsoshort\}}. Tämä tuottaa paikalleen vaikkapa merkinnän \cite{notsoshort}, riippuen lopullisesta lähdeluettelosta. Viittaukseen voidaan lisätä tietoja valinnaisten argumenttien avulla: esimerkiksi kirjoittamalla \verbcommand{cite[s. 30]\{notsoshort\}} tuottaa \cite[s. 30]{notsoshort} ja \verbcommand{cite[katso][s. 30]\{notsoshort\}} tuottaa \cite[katso][s. 30]{notsoshort}.
+
+Nimi-vuosijärjestelmä on monimutkaisempi, sillä se sallii monenlaisia siteerausmahdollisuuksia, kuten yllä nähdään. Bib\LaTeX{}in toimintalogiikka pysyy kuitenkin samanlaisena, vain komennot vaihtuvat. Tärkeimmät viittauskomennot ovat \verbcommand{parencite}, \verbcommand{parencite*}, \verbcommand{citeauthor} ja \verbcommand{textcite}, jotka tuottavat tuloksinaan (Oetiker et al. 2018), (2018), Oetiker et al. ja Oetiker et al. (2018) samassa järjestyksessä.  Lisää komentoja voi etsiä dokumentaatiosta \parencite{biblatex}.
+
+\section{Lähdeluettelo}
+
+Lähteestä kerrotaan vähintään
+\begin{itemize}
+    \item tekijä(t),
+    \item otsikko,
+    \item julkaisuaika,
+    \item julkaisija,
+    \item sivunumerot (kirjat ja lehdet), sekä
+    \item verkko-osoite,
+\end{itemize}
+jos ne tiedetään. Bib\LaTeX{} huolehtii tietojen järjestämisestä keskenään samalla tavalla. Järjestelmän käytössä on oleellista tietää myös lähteen tyyppi: lehtiartikkeli, kirja, konferenssijulkaisu, raportti ja patentti ovat vain esimerkkejä erilaisista mahdollisuuksista. Tämä tieto sisällytetään \texttt{.bib}-tiedostoon, ja muotoilu tapahtuu automaattisesti lähteen tyypin perusteella. Alla on esitetty malliksi lehtiartikkelin tietojen kirjoittaminen lähteeksi \texttt{.bib}-tiedostoon.
+
+\texttt{
+\begin{quotation}
+    \noindent @article\{braams1991babel,\\
+    title=\{Babel, a multilingual style-option system \\
+    for use with \textbackslash LaTeX’s standard document styles\},\\
+    author=\{Braams, Johannes L\},\\
+    journal=\{TUGboat\},\\
+    volume=\{12\},\\
+    number=\{2\},\\
+    pages=\{291--301\},\\
+    year=\{1991\}\\
+    \}
+\end{quotation}
+}
+
+Opinnäytteissä lähdeluettelo kannattaa järjestää aakkosjärjestykseen ensimmäisen kirjoittajan sukunimen perusteella. Tämä tapahtuu tässä pohjassa automaattisesti. Erinomainen keino muodostaa yksittäinen lähde nopeasti on etsiä sille pohja Google Scholarin avulla. Se luo automaattisesti hyvän yritteen Bib\TeX{}in ja Bib\LaTeX{}in käyttöön. Dokumentaation lisäksi hyvä yhteenveto mahdollisista lähdetyypeistä ja niihin liittyvistä kentistä löytyy lähteestä \parencite{bibmanagement}.
